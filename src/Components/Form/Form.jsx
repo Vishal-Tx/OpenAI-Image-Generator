@@ -1,34 +1,30 @@
 import React, { useRef } from "react";
-import axios from "axios";
 
-const Form = () => {
-  const url = "http://localhost:5000/openai";
+const Form = ({ getImage }) => {
   const inputref = useRef(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     let selected = document.getElementById("size").value;
-    console.log(selected);
-    alert(inputref.current.value + selected);
     const desc = inputref.current.value;
-    const response = await axios.post(`${url}/generateimage`, {
-      desc,
-      selected,
-    });
+    getImage(desc, selected);
   };
   return (
-    <div className="flex justify-center items-center h-56 bg-red-400">
-      <div className="flex flex-col items-center">
-        <h1 className="text-4xl font-bold">Describe an Image.</h1>
+    <div className="flex justify-center items-center py-8 bg-red-400 flex-wrap">
+      <div className="flex flex-col items-center flex-wrap">
+        <h1 className="text-4xl font-bold text-center">Describe an Image.</h1>
         <form onSubmit={handleSubmit}>
-          <input
-            className=" w-96 h-10 font-semibold text-xl my-4"
+          <textarea
+            className="  h-10 font-semibold text-xl my-4 w-96 p-1 max-[400px]:w-60"
             ref={inputref}
-          ></input>
+            rows="4"
+            required
+          ></textarea>
           <select
             name="size"
             id="size"
-            className="w-96 h-10 block  mb-4"
-            defaultValue="medium"
+            className=" h-10 block  mb-4 w-96 max-[400px]:w-60"
+            defaultValue="medium "
           >
             <option value="small">Small</option>
             <option value="medium">Medium</option>
