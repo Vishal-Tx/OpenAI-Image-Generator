@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, ImageArea } from "../index";
 import axios from "axios";
 import ReactLoading from "react-loading";
+import "./Home.css";
 
 const Home = () => {
   const url = "http://localhost:5000/openai";
@@ -33,19 +34,26 @@ const Home = () => {
 
   return (
     <>
-      {loading && (
-        <div className="absolute backdrop-brightness-50 w-full h-full">
+      {/* {!loading && (
+        <div
+          className="absolute backdrop-brightness-50 w-full mx-auto"
+          style={{ height: "20rem" }}
+        >
           <ReactLoading
             type="spin"
             color="black"
             height={60}
             width={60}
-            className="mx-auto mt-80"
+            className="mx-auto mt-80 "
           />
         </div>
-      )}
-      <Form getImage={getImage} />
-      <ImageArea image={image} error={error} />
+      )} */}
+      {loading && <div className="loading">Loading&#8230;</div>}
+
+      <div className="content">
+        <Form getImage={getImage} />
+        <ImageArea image={image} error={error} />
+      </div>
     </>
   );
 };
